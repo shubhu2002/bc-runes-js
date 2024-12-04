@@ -1,3 +1,7 @@
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/rsksmart/bc-runes-js/badge)](https://scorecard.dev/viewer/?uri=github.com/rsksmart/bc-runes-js)
+[![CodeQL](https://github.com/rsksmart/bc-runes-js/workflows/CodeQL/badge.svg)](https://github.com/rsksmart/bc-runes-js/actions?query=workflow%3ACodeQL)
+
+
 <img src="rootstock-logo.png" alt="RSK Logo" style="width:100%; height: auto;" />
 
 # BC RUNES JS
