@@ -127,7 +127,7 @@ async function consolidateUtxos(address, valueThreshold) {
     const { txHash } = await signAndSubmit(unsignedTx, tweakedSigner())
     log(`Submitted UTXOs consolidation transaction with hash ${txHash}.`)
 
-    await waitForTxToBeConfirmed(txHash)
+    // await waitForTxToBeConfirmed(txHash)
   } else {
     log('No UTXOs to consolidate yet.')
   }

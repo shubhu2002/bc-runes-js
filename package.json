@@ -1,6 +1,6 @@
 {
-  "name": "bc-runes-js",
-  "version": "0.3.2",
+  "name": "@shubh/bc-runes-js",
+  "version": "0.3.3",
   "main": "./index.js",
   "scripts": {
     "random-wif": "node src/utils/getRandomWIF.js --log=wif",
