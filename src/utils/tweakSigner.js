@@ -1,9 +1,11 @@
 const bitcoin = require('bitcoinjs-lib')
 const { ECPairFactory } = require('ecpair')
 const ecc = require('@bitcoinerlab/secp256k1')
-
+const {testnetNetwork} = require('../config')
 const ECPair = ECPairFactory(ecc)
-const testnetNetwork = bitcoin.networks.testnet
+
+// const testnetNetwork = bitcoin.networks.testnet
+// const bitcoinNetwork = bitcoin.networks.bitcoin
 
 function tapTweakHash(pubKey) {
   return bitcoin.crypto.taggedHash(

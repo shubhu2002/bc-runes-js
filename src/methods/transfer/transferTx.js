@@ -94,13 +94,19 @@ async function transferTx(transfers) {
     runesUtxos.push(...runeUtxos)
   }
 
-  runesUtxos = filterUtxos(runesUtxos)
-  unsignedTx.addInputs(runesUtxos)
+  // runesUtxos = filterUtxos(runesUtxos)
+  // unsignedTx.addInputs(runesUtxos)
 
   const estimatedVBytes = (runesUtxos.length + 1) * taprootInputSize + (transfers.length + 1) * taprootOutputSize
   const fee = estimatedVBytes * feePerVByte()
   const feesUtxo = await findFirstUtxoAvailable(taprootAddress(), fee + 546)
-  unsignedTx.addInput(feesUtxo)
+
+  const allUtxos = [...runesUtxos,...feesUtxo]
+  const uniqueUtxos = filterUtxos(allUtxos)
+
+  uniqueUtxos.forEach(utxo => {
+    unsignedTx.addInput(utxo)
+  });
 
   await createEdictsAndOutputs(transfers, unsignedTx, feesUtxo, fee)
 

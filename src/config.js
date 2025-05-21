@@ -1,25 +1,33 @@
 const bitcoin = require('bitcoinjs-lib')
 const { ECPairFactory } = require('ecpair')
 const ecc = require('@bitcoinerlab/secp256k1')
-const { tweakSigner } = require('./utils/tweakSigner.js')
+// const { tweakSigner } = require('./utils/tweakSigner.js')
 
 const ECPair = ECPairFactory(ecc)
 bitcoin.initEccLib(ecc)
 
-const mempoolBaseURL = `https://mempool.space/testnet4/api`
+// const mempoolBaseURL = `https://mempool.space/testnet4/api`
+const mempoolBaseURL = `https://mempool.space/api`
 
-const blockstreamBaseURL = 'https://blockstream.info/testnet/api'
+// const blockstreamBaseURL = 'https://blockstream.info/testnet/api'
+const blockstreamBaseURL = 'https://blockstream.info/api'
+
+// const runesBaseURL = 'https://open-api-testnet4.unisat.io/v1/indexer'
+const runesBaseURL = 'https://open-api.unisat.io/v1/indexer'
+
+// const testnetNetwork = bitcoin.networks.testnet
+const testnetNetwork = bitcoin.networks.bitcoin
+
 const txURL = `${mempoolBaseURL}/tx`
 const txInfoURL = (txHash) => `${txURL}/${txHash}`
 const utxoURL = (address) => `${mempoolBaseURL}/address/${address}/utxo`
-const runesBaseURL = 'https://open-api-testnet4.unisat.io/v1/indexer'
 const runeByIdURL = (runeId) => `${runesBaseURL}/runes/${runeId}/info`
 const runeByNameURL = (name) => `${runesBaseURL}/runes/info-list?rune=${name}&limit=500`
 const runesByAddressURL = (address) => `${runesBaseURL}/address/${address}/runes/balance-list`
 const runeUtxosForAddressURL = (address, runeId) => `${runesBaseURL}/address/${address}/runes/${runeId}/utxo`
 const estimateURL = `${mempoolBaseURL}/v1/fees/recommended`
 const getTipURL = `${mempoolBaseURL}/blocks/tip/height`
-const testnetNetwork = bitcoin.networks.testnet
+
 
 let _taprootAddress, _wif, _tweakedSigner, _feeEstimate, _feePerVByte
 
@@ -81,5 +89,5 @@ module.exports = {
   runeUtxosForAddressURL,
   estimateURL,
   getTipURL,
-  testnetNetwork
+  testnetNetwork,
 }

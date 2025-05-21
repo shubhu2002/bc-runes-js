@@ -41,21 +41,37 @@ function formatUtxo(
 
 async function findFirstUtxoAvailable(address, amountNeeded) {
   const utxos = await getUtxos(address)
-  let utxo = undefined
+  // let utxo = undefined
   utxos.sort((u1, u2) => u2.value - u1.value)
 
-  while (!utxo && utxos.length) {
-    const current = utxos.pop()
-    if (current.value >= amountNeeded) {
-      utxo = formatUtxo(address, current)
-    }
+  let selectedUtxos = [];
+  let total = 0;
+  
+  while (utxos.length && total < amountNeeded) {
+    const current = utxos.pop();
+    total += current.value;
+    selectedUtxos.push(formatUtxo(address, current));
   }
 
-  if (utxo) {
-    return utxo
+  if (total >= amountNeeded) {
+    return selectedUtxos;
   } else {
     throw new Error(`No UTXOs available for address ${address} with at least ${amountNeeded} satoshis`)
   }
+
+
+  // while (!utxo && utxos.length) {
+  //   const current = utxos.pop()
+  //   if (current.value >= amountNeeded) {
+  //     utxo = formatUtxo(address, current)
+  //   }
+  // }
+
+  // if (utxo) {
+  //   return utxo
+  // } else {
+  //   throw new Error(`No UTXOs available for address ${address} with at least ${amountNeeded} satoshis`)
+  // }
 }
 
 async function findUtxo(address, txHash) {
