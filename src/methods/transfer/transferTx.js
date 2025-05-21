@@ -52,7 +52,12 @@ async function createEdictsAndOutputs(transfers, unsignedTx, feesUtxo, fee) {
   const runeScript = transferRunestoneScript(edicts)
   unsignedTx.addOutput({ value: 0, script: runeScript })
 
-  const btcChange = feesUtxo.value - fee
+  let totalFeeUtxo = 0
+  feesUtxo.forEach(utxo => {
+    totalFeeUtxo += utxo.value
+  });
+
+  const btcChange = totalFeeUtxo - fee
   if (btcChange) {
     unsignedTx.addOutput({ address: taprootAddress(), value: btcChange })
   }
